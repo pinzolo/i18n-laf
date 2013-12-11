@@ -5,7 +5,7 @@ module I18n::LaF
 
     def initialize(locale, data)
       @locale = locale
-      @keys = data.keys
+      @keys = data.keys if data.respond_to?(:keys)
       @data = data
     end
   end
