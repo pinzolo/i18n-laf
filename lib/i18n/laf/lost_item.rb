@@ -9,11 +9,11 @@ module I18n::LaF
     end
 
     def to_s
-      str = ["#{@locale} => {"]
+      strs = ["#{@locale} => {"]
       delimiter = ""
       if @keys.is_a?(Array) && !@keys.empty?
         delimiter = "\n"
-        strs += @keys.map { |key| "  #{key}" }
+        strs += @keys.sort.map { |key| "  #{key}" }
       end
       strs << "}"
       strs.join(delimiter)

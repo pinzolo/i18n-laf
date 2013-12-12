@@ -7,9 +7,7 @@ module I18n::LaF
 
     def print
       print_home
-      puts
       print_locales
-      puts
       print_lost_items
     end
 
@@ -20,14 +18,13 @@ module I18n::LaF
 
     def print_locales
       tag = @office.dictionaries.size == 1 ? "Locale" : "Locales"
-      puts "#{tag}: #{@office.dictionaries.map(&:locale).join(", ")}"
+      puts "#{tag}: #{@office.dictionaries.map(&:locale).sort.join(", ")}"
     end
 
     def print_lost_items
       if @office.lost_items.is_a?(Array) && !@office.lost_items.empty?
-        puts "Lost items:"
         puts "============"
-        puts @office.lost_items.map(&:to_s).join("\n")
+        puts @office.lost_items.sort_by(&:locale).map(&:to_s).join("\n")
       else
         puts "There is no lost item, Yeah!"
       end
