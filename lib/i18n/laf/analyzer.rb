@@ -9,24 +9,24 @@ module I18n::LaF
     end
 
     def analyze
-      locale = extract_locale(yaml_file)
-      Dictionary.new(locale, flatten(extract_data(yaml_file, locale)))
+      locale = extract_locale
+      Dictionary.new(locale, flatten(extract_data(locale)))
     end
 
     private
     def flatten(data, base_key = nil)
       data.each_with_object({}) do |(k, v), dict|
         key = base_key ? "#{base_key}.#{k}" : k.to_s
-        dict.merge!(v.is_a?(Hash) ? keys(v, key) : { key => v })
+        dict.merge!(v.is_a?(Hash) ? flatten(v, key) : { key => v })
       end
     end
 
-    def extract_locale(yaml_file)
-      File.basename(yaml_file, ".*")
+    def extract_locale
+      File.basename(@yaml_file, ".*")
     end
 
-    def extract_data(yaml_file, locale)
-      YAML.load_file(yml_path)[locale]
+    def extract_data(locale)
+      YAML.load_file(@yaml_file)[locale]
     end
   end
 end

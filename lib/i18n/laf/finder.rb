@@ -1,7 +1,7 @@
 # coding: utf-8
 require "i18n/laf/lost_item"
 
-module I18n::Laf
+module I18n::LaF
   class Finder
     def initialize(dictionaries)
       @dictionaries = dictionaries
