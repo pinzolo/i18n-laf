@@ -3,7 +3,7 @@
 [![Build Status](https://secure.travis-ci.org/pinzolo/i18n-laf.png)](http://travis-ci.org/pinzolo/i18n-laf)
 [![Coverage Status](https://coveralls.io/repos/pinzolo/i18n-laf/badge.png)](https://coveralls.io/r/pinzolo/i18n-laf)
 
-This provides a feature that finds lost keys in your I18N dictionary files. (Laf = Lost and Found)
+This provides a feature that finds lost keys in your I18N dictionary files. (LaF = Lost and Found)
 
 ## Installation
 
