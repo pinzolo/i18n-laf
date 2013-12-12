@@ -22,8 +22,8 @@ module I18n::LaF
     end
 
     def print_lost_items
+      puts "============"
       if @office.lost_items.is_a?(Array) && !@office.lost_items.empty?
-        puts "============"
         puts @office.lost_items.sort_by(&:locale).map(&:to_s).join("\n")
       else
         puts "There is no lost item, Yeah!"

@@ -17,16 +17,35 @@ end
 
 describe I18n::LaF::Printer do
   let(:locale_path) { File.expand_path(File.join(File.dirname(__FILE__), "../../../locales")) }
-  let(:office) { I18n::LaF::Office.new(File.join(locale_path, "flat")) }
 
   describe "#print" do
-    context "when lost items exist"
-    it "output information of lost items" do
-      output = capture(:stdout) do
-        office.work!
-        I18n::LaF::Printer.new(office).print
+    context "when lost item not exist" do
+      let(:office) { I18n::LaF::Office.new(File.join(locale_path, "no-lost")) }
+
+      it "output information of lost items" do
+        output = capture(:stdout) do
+          office.work!
+          I18n::LaF::Printer.new(office).print
+        end
+        expected =<<_EOS_
+Home directory: #{File.join(locale_path, "no-lost")}
+Locales: de, en, ja
+============
+There is no lost item, Yeah!
+_EOS_
+        expect(output).to eq expected
       end
-      expected =<<_EOS_
+    end
+
+    context "when lost items exist" do
+      let(:office) { I18n::LaF::Office.new(File.join(locale_path, "flat")) }
+
+      it "output information of lost items" do
+        output = capture(:stdout) do
+          office.work!
+          I18n::LaF::Printer.new(office).print
+        end
+        expected =<<_EOS_
 Home directory: #{File.join(locale_path, "flat")}
 Locales: de, en, ja
 ============
@@ -38,7 +57,8 @@ en => {
   item2
 }
 _EOS_
-      expect(output).to eq expected
+        expect(output).to eq expected
+      end
     end
   end
 end
