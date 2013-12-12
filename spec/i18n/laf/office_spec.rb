@@ -4,6 +4,17 @@ require "spec_helper"
 describe I18n::LaF::Office do
   let(:locale_path) { File.expand_path(File.join(File.dirname(__FILE__), "../../../locales")) }
 
+  context "when target files have no lost key" do
+    let(:office) { I18n::LaF::Office.new(File.join(locale_path, "no-lost")) }
+    before { office.work! }
+
+    describe "#lost_items" do
+      it "returns empty" do
+        expect(office.lost_items).to be_empty
+      end
+    end
+  end
+
   context "when target files are placed flat" do
     let(:office) { I18n::LaF::Office.new(File.join(locale_path, "flat")) }
 
