@@ -16,11 +16,11 @@ def capture(stream)
 end
 
 describe I18n::LaF::Printer do
-  let(:locale_path) { File.expand_path(File.join(File.dirname(__FILE__), "../../../locales")) }
+  let(:locale_path) { File.expand_path(File.join(File.dirname(__FILE__), "../../../data/tree")) }
 
   describe "#print" do
     context "when lost item not exist" do
-      let(:office) { I18n::LaF::Office.new(File.join(locale_path, "no-lost")) }
+      let(:office) { I18n::LaF::Office.new(File.join(locale_path, "model/user")) }
 
       it "output information of lost items" do
         output = capture(:stdout) do
@@ -28,7 +28,7 @@ describe I18n::LaF::Printer do
           I18n::LaF::Printer.new(office).print
         end
         expected =<<_EOS_
-Home directory: #{File.join(locale_path, "no-lost")}
+Home directory: #{File.join(locale_path, "model/user")}
 Locales: de, en, ja
 ============
 There is no lost item, Yeah!
@@ -38,7 +38,7 @@ _EOS_
     end
 
     context "when lost items exist" do
-      let(:office) { I18n::LaF::Office.new(File.join(locale_path, "flat")) }
+      let(:office) { I18n::LaF::Office.new(File.join(locale_path, "model/book")) }
 
       it "output information of lost items" do
         output = capture(:stdout) do
@@ -46,15 +46,18 @@ _EOS_
           I18n::LaF::Printer.new(office).print
         end
         expected =<<_EOS_
-Home directory: #{File.join(locale_path, "flat")}
+Home directory: #{File.join(locale_path, "model/book")}
 Locales: de, en, ja
 ============
 de => {
-  item2
-  item3.item3-2
+  models.book.author
+  models.book.price
 }
 en => {
-  item2
+  models.book.author
+}
+ja => {
+  models.book.title
 }
 _EOS_
         expect(output).to eq expected

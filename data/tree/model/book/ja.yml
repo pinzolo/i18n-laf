@@ -1,0 +1,5 @@
+ja:
+  models:
+    book:
+      author: Author
+      price: Price

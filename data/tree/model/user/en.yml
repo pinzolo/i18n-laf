@@ -1,0 +1,7 @@
+en:
+  model:
+    user:
+      name: Name
+      email: E-mail
+      tel: Tel
+

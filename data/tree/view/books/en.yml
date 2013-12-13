@@ -1,0 +1,6 @@
+en:
+  views:
+    books:
+      title: Books
+      caution: This is caution!!
+
