@@ -45,6 +45,12 @@ describe I18n::LaF::Office do
     let(:office) { I18n::LaF::Office.new(File.join(locale_path, "view/users")) }
     before { office.work! }
 
+    describe "#leaves" do
+      it "returns empty" do
+        expect(office.leaves).to be_empty
+      end
+    end
+
     describe "#dictionaries" do
       it "returns empty" do
         expect(office.dictionaries).to be_empty
@@ -77,20 +83,32 @@ describe I18n::LaF::Office do
       end
     end
 
+    describe "#lost_item_for" do
+      it "returns lost item in given locale if exists" do
+        lost_item = office.lost_item_for("ja")
+        expect(lost_item).not_to be_nil
+      end
+      it "returns nil in given locale if not exists" do
+        lost_item = office.lost_item_for("fr")
+        expect(lost_item).to be_nil
+      end
+      it "returns I18n::LaF::LostItem instance" do
+        lost_item = office.lost_item_for("ja")
+        expect(lost_item).to be_a(I18n::LaF::LostItem)
+      end
+    end
+
     describe "#lost_items" do
       it_should_behave_like "having lost items"
 
       it "lost items in ja has 1 key that is title" do
-        lost_item = office.lost_items.find { |l| l.locale == "ja" }
-        expect(lost_item.keys).to match_array ["models.book.title"]
+        expect(office.lost_item_for("ja").keys).to match_array ["models.book.title"]
       end
       it "lost items in en has 1 key that is author" do
-        lost_item = office.lost_items.find { |l| l.locale == "en" }
-        expect(lost_item.keys).to match_array ["models.book.author"]
+        expect(office.lost_item_for("en").keys).to match_array ["models.book.author"]
       end
       it "lost items in de has 2 keys that are author and price" do
-        lost_item = office.lost_items.find { |l| l.locale == "de" }
-        expect(lost_item.keys).to match_array %w(models.book.author models.book.price)
+        expect(office.lost_item_for("de").keys).to match_array %w(models.book.author models.book.price)
       end
     end
   end
@@ -105,16 +123,13 @@ describe I18n::LaF::Office do
       it_should_behave_like "having lost items"
 
       it "lost items in ja has 1 key that is models.book.title" do
-        lost_item = office.lost_items.find { |l| l.locale == "ja" }
-        expect(lost_item.keys).to match_array ["models.book.title"]
+        expect(office.lost_item_for("ja").keys).to match_array ["models.book.title"]
       end
       it "lost items in en has 1 key that is models.book.author" do
-        lost_item = office.lost_items.find { |l| l.locale == "en" }
-        expect(lost_item.keys).to match_array ["models.book.author"]
+        expect(office.lost_item_for("en").keys).to match_array ["models.book.author"]
       end
       it "lost items in de has 4 keys that are models.book.author, models.book.price, views.books.title and views.books.caution" do
-        lost_item = office.lost_items.find { |l| l.locale == "de" }
-        expect(lost_item.keys).to match_array %w(models.book.author models.book.price views.books.title views.books.caution)
+        expect(office.lost_item_for("de").keys).to match_array %w(models.book.author models.book.price views.books.title views.books.caution)
       end
     end
   end

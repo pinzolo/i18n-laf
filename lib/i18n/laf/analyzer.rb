@@ -1,6 +1,6 @@
 # coding: utf-8
 require "yaml"
-require "i18n/laf/dictionary"
+require "i18n/laf/leaf"
 
 module I18n::LaF
   class Analyzer
@@ -10,7 +10,7 @@ module I18n::LaF
 
     def analyze
       locale = extract_locale
-      Dictionary.new(locale, flatten(extract_data(locale)))
+      Leaf.new(locale, flatten(extract_data(locale)), @yaml_file)
     end
 
     private
