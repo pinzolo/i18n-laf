@@ -29,7 +29,7 @@ describe I18n::LaF::Printer do
         end
         expected =<<_EOS_
 Home directory: #{File.join(locale_path, "model/user")}
-Locales: de, en, ja
+Locale(s): de, en, ja
 ============
 There is no lost item, Yeah!
 _EOS_
@@ -47,7 +47,7 @@ _EOS_
         end
         expected =<<_EOS_
 Home directory: #{File.join(locale_path, "model/book")}
-Locales: de, en, ja
+Locale(s): de, en, ja
 ============
 de => {
   models.book.author
@@ -61,6 +61,36 @@ ja => {
 }
 _EOS_
         expect(output).to eq expected
+      end
+    end
+
+    context "when found item exist" do
+      let(:office) { I18n::LaF::Office.new(File.join(locale_path, "model/book")) }
+
+      it "output information of found item" do
+        output = capture(:stdout) do
+          item = office.search("models.book.author")
+          I18n::LaF::Printer.new(item).print
+        end
+          expected =<<_EOS_
+ja:
+  models:
+    book:
+      author: Author(ja)
+in #{File.join(locale_path, "model/book/ja.yml")}
+_EOS_
+        expect(output).to eq expected
+      end
+    end
+
+    context "when found item not exists" do
+      let(:office) { I18n::LaF::Office.new(File.join(locale_path, "model/user")) }
+
+      it "output information of found item" do
+        output = capture(:stdout) do
+          item = office.search("models.book.author")
+        end
+        expect(output).to eq ""
       end
     end
   end

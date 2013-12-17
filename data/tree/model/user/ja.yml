@@ -1,7 +1,7 @@
 ja:
   model:
     user:
-      name: Name
-      email: E-mail
-      tel: Tel
+      name: Name(ja)
+      email: E-mail(ja)
+      tel: Tel(ja)
 

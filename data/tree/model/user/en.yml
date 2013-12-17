@@ -1,7 +1,7 @@
 en:
   model:
     user:
-      name: Name
-      email: E-mail
-      tel: Tel
+      name: Name(en)
+      email: E-mail(en)
+      tel: Tel(en)
 

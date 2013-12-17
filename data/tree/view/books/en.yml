@@ -1,6 +1,6 @@
 en:
   views:
     books:
-      title: Books
-      caution: This is caution!!
+      title: Books(en)
+      caution: This is caution!!(en)
 

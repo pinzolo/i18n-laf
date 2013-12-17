@@ -1,5 +1,5 @@
 ja:
   models:
     book:
-      author: Author
-      price: Price
+      author: Author(ja)
+      price: Price(ja)

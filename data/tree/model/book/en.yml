@@ -1,6 +1,6 @@
 en:
   models:
     book:
-      title: Title
-      price: Price
+      title: Title(en)
+      price: Price(en)
 
